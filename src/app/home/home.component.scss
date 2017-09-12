@@ -1,0 +1,133 @@
+$font-sizes: (
+  1: .75rem,
+  2: 1rem,
+  3: 1.25rem,
+  4: 1.5rem,
+  5: 1.75rem,
+  6: 2rem
+);
+
+$line-spacing: (
+  1: 1rem,
+  2: 1.5rem,
+  3: 2rem,
+  4: 2.5rem,
+  5: 3rem
+);
+
+app-home {
+  padding: 2rem;
+}
+
+.math-problems {
+  flex-direction: row;
+  flex-wrap: wrap;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.worksheet__card {
+  height: 660pt; // emulate 8.5x11 paper height
+  margin: 1rem auto;
+  padding: 0;
+  width: 511pt; // emulate 8.5x11 paper width
+}
+
+.worksheet__card--landscape {
+  height: 511pt; // emulate landscape 8.5x11 paper height
+  width: 660pt; // emulate landscape 8.5x11 paper width
+}
+
+.math-problem {
+  box-sizing: border-box;
+  padding: 1rem 0;
+  text-align: center;
+  transition: font-size 250ms ease, padding 250ms ease, width 250ms ease;
+  width: 20%;
+
+  @for $i from 1 through 10 {
+    .math-problems--columns-#{$i} & {
+      width: (100% / $i);
+    }
+  }
+
+  @for $i from 1 through 6 {
+    .math-problems--font-size-#{$i} & {
+      font-size: map-get($font-sizes, $i);
+    }
+  }
+
+  @for $i from 1 through 5 {
+    .math-problems--line-spacing-#{$i} & {
+      padding-bottom: map-get($line-spacing, $i);
+      padding-top: map-get($line-spacing, $i);
+    }
+  }
+}
+
+.math-problem__answer {
+  border-top: 2px solid #000;
+  text-align: right;
+}
+
+.math-problem__number {
+  font-weight: bold;
+  left: 0;
+  position: absolute;
+  text-align: right;
+  top: 0;
+  width: 2em;
+}
+
+.math-problem__problem {
+  display: inline-block;
+  padding-left: 2em;
+  position: relative;
+  text-align: left;
+}
+
+.math-problem__symbol {
+  bottom: 1.15em;
+  left: 2em;
+  position: absolute;
+}
+
+.math-problem__value {
+  padding-left: 1em; // leave room for the symbol
+  text-align: right;
+}
+
+.worksheet__instructions {
+  text-align: center;
+}
+
+.worksheet__name {
+  padding-right: 1rem;
+  padding-top: 1rem;
+  text-align: right;
+
+  &:after {
+    border-bottom: 2px solid #000;
+    content: "";
+    display: inline-block;
+    margin-left: .5rem;
+    width: 15rem;
+  }
+}
+
+.worksheet__title {
+  text-align: center;
+}
+
+@media print {
+  .worksheet-options {
+    display: none;
+  }
+
+  .worksheet__card,
+  .worksheet__card--landscape {
+    height: auto;
+    margin: 0;
+    width: 100%;
+  }
+}

@@ -1,0 +1,109 @@
+<div style="padding: 2rem;">
+  <md-expansion-panel class="worksheet-options" expanded="true">
+    <md-expansion-panel-header>
+      <md-panel-title>
+        Worksheet Options
+      </md-panel-title>
+      <md-panel-description>
+        Adjust the options for the worksheet
+      </md-panel-description>
+    </md-expansion-panel-header>
+    <form #optionsForm="ngForm">
+      <md-form-field>
+        <input mdInput #problemCount="ngModel" type="number" placeholder="Number of Problems" name="problemCount" value="20" required [(ngModel)]="mathService.options.problemCount">
+        <md-error [hidden]="problemCount.valid || problemCount.pristine">
+          Number of Problems must be provided
+        </md-error>
+      </md-form-field>
+      <md-form-field>
+        <input mdInput #topValueMin="ngModel" type="number" placeholder="Top number minimum" name="topValueMin" value="100" required [(ngModel)]="mathService.options.topValueMinMax.min">
+        <md-error [hidden]="problemCount.valid || problemCount.pristine">
+          Minimum top value must be provided
+        </md-error>
+      </md-form-field>
+      <md-form-field>
+        <input mdInput #topValueMax="ngModel" type="number" placeholder="Top number maximum" name="topValueMax" value="999" required [(ngModel)]="mathService.options.topValueMinMax.max">
+        <md-error [hidden]="problemCount.valid || problemCount.pristine">
+          Maximum top value must be provided
+        </md-error>
+      </md-form-field>
+      <md-form-field>
+        <input mdInput #bottomValueMin="ngModel" type="number" placeholder="Bottom number minimum" name="bottomValueMin" value="1" required [(ngModel)]="mathService.options.bottomValueMinMax.min">
+        <md-error [hidden]="problemCount.valid || problemCount.pristine">
+          Minimum bottom value must be provided
+        </md-error>
+      </md-form-field>
+      <md-form-field>
+        <input mdInput #bottomValueMax="ngModel" type="number" placeholder="Bottom number maximum" name="bottomValueMax" value="100" required [(ngModel)]="mathService.options.bottomValueMinMax.max">
+        <md-error [hidden]="problemCount.valid || problemCount.pristine">
+          Maximum bottom value must be provided
+        </md-error>
+      </md-form-field>
+      <div>
+        Problems per row
+        <br>
+        <md-slider min="1" max="10" [value]="problemsPerRow" (input)="problemsPerRowSliderChange($event)"></md-slider> {{problemsPerRow}}
+      </div>
+      <div>
+        Problem font size
+        <br>
+        <md-slider min="1" max="6" [value]="problemFontSize" (input)="problemFontSizeSliderChange($event)"></md-slider> {{problemFontSize}}
+      </div>
+      <div>
+        Line Spacing
+        <br>
+        <md-slider min="1" max="5" [value]="lineSpacing" (input)="lineSpacingSliderChange($event)"></md-slider> {{lineSpacing}}
+      </div>
+      <div>
+        <md-slide-toggle name="showNameLine" [(ngModel)]="mathService.options.showNameLine">Show name line</md-slide-toggle>
+      </div>
+      <div>
+        <md-slide-toggle name="showTitle" [(ngModel)]="mathService.options.showTitle">Show title</md-slide-toggle>
+        <br>
+        <md-form-field *ngIf="mathService.options.showTitle">
+          <input mdInput #title="ngModel" type="text" placeholder="Title" name="title" required [(ngModel)]="mathService.options.title">
+          <md-error [hidden]="title.valid || title.pristine">
+            A title must be provided
+          </md-error>
+        </md-form-field>
+      </div>
+      <div>
+        <md-slide-toggle name="showInstructions" [(ngModel)]="mathService.options.showInstructions">Show instructions</md-slide-toggle>
+        <br>
+        <md-form-field *ngIf="mathService.options.showInstructions">
+          <input mdInput #instructions="ngModel" type="text" placeholder="Instructions" name="instructions" required [(ngModel)]="mathService.options.instructions">
+          <md-error [hidden]="instructions.valid || instructions.pristine">
+            Instructions must be provided
+          </md-error>
+        </md-form-field>
+      </div>
+      <div>
+        <md-slide-toggle name="showAnswers" [(ngModel)]="mathService.options.showAnswers">Show answers</md-slide-toggle>
+      </div>
+      <div>
+        <md-slide-toggle name="landscape" [(ngModel)]="mathService.options.landscape">Landscape mode</md-slide-toggle>
+      </div>
+      <div>
+        <button md-raised-button color="primary" (click)="generateWorksheet()" [disabled]="!optionsForm.form.valid">Generate Worksheet</button>
+      </div>
+    </form>
+  </md-expansion-panel>
+  <md-card class="worksheet__card" [class.worksheet__card--landscape]="mathService.options.landscape" *ngIf="mathService.problems.length">
+    <md-card-content>
+      <h2 class="worksheet__name" *ngIf="mathService.options.showNameLine">Name:</h2>
+      <h1 class="worksheet__title" *ngIf="mathService.options.showTitle">{{mathService.options.title}}</h1>
+      <h3 class="worksheet__instructions" *ngIf="mathService.options.showInstructions">{{mathService.options.instructions}}</h3>
+      <div class="math-problems" [ngClass]="mathProblemsClasses">
+        <div class="math-problem" *ngFor="let problem of mathService.problems; index as i">
+          <div class="math-problem__problem">
+            <div class="math-problem__number">{{i+1}}.</div>
+            <div class="math-problem__symbol">{{ problem.symbol }}</div>
+            <div class="math-problem__value" *ngFor="let value of problem.values">{{ value }}</div>
+            <div class="math-problem__answer" *ngIf="mathService.options.showAnswers">{{ problem.answer }}</div>
+            <div class="math-problem__answer" *ngIf="!mathService.options.showAnswers">&nbsp;</div>
+          </div>
+        </div>
+      </div>
+    </md-card-content>
+  </md-card>
+</div>
