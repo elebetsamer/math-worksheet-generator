@@ -2,7 +2,20 @@
 @import 'variables';
 @import 'reboot';
 
-body {
-  background-color: #ddd;
-  margin: 0;
+html,
+body,
+app-root,
+app-home {
+  height: 100%;
+}
+
+app-root,
+app-home {
+  display: block;
+}
+
+.d-print-none {
+  @media print {
+    display: none !important;
+  }
 }

@@ -1,3 +1,5 @@
+$base-line-spacing: 16px;
+
 $font-sizes: (
   1: .75rem,
   2: 1rem,
@@ -8,28 +10,41 @@ $font-sizes: (
 );
 
 $line-spacing: (
-  1: 1rem,
-  2: 1.5rem,
-  3: 2rem,
-  4: 2.5rem,
-  5: 3rem
+  1: $base-line-spacing,
+  2: $base-line-spacing * 2,
+  3: $base-line-spacing * 3,
+  4: $base-line-spacing * 4,
+  5: $base-line-spacing * 5,
+  6: $base-line-spacing * 6,
+  7: $base-line-spacing * 7,
+  8: $base-line-spacing * 8,
+  9: $base-line-spacing * 9,
+  10: $base-line-spacing * 10
 );
 
-app-home {
-  padding: 2rem;
+.worksheet {
+  align-items: stretch;
+  flex-direction: row;
+  display: flex;
+  height: 100%;
 }
 
-.math-problems {
-  flex-direction: row;
-  flex-wrap: wrap;
-  display: flex;
-  justify-content: flex-start;
+.worksheet-content {
+  flex-grow: 1;
+  height: 100%;
+  overflow-y: auto;
+}
+
+.worksheet-sidebar {
+  background-color: #fff;
+  height: 100%;
+  overflow-y: auto;
 }
 
 .worksheet__card {
   height: 660pt; // emulate 8.5x11 paper height
   margin: 1rem auto;
-  padding: 0;
+  padding: 2rem;
   width: 511pt; // emulate 8.5x11 paper width
 }
 
@@ -38,11 +53,37 @@ app-home {
   width: 660pt; // emulate landscape 8.5x11 paper width
 }
 
+.worksheet__instructions {
+  font-weight: 400;
+  margin: 0 0 1rem 0;
+  text-align: center;
+}
+
+.worksheet__name {
+  font-weight: 500;
+  margin-bottom: 1rem;
+  text-align: right;
+
+  &:after {
+    border-bottom: 2px solid #000;
+    content: "";
+    display: inline-block;
+    margin-left: .5rem;
+    width: 50%;
+  }
+}
+
+.worksheet__title {
+  font-weight: 500;
+  margin: 0 0 1rem 0;
+  text-align: center;
+}
+
 .math-problem {
   box-sizing: border-box;
-  padding: 1rem 0;
+  margin-bottom: 1rem;
   text-align: center;
-  transition: font-size 250ms ease, padding 250ms ease, width 250ms ease;
+  transition: font-size 250ms ease, margin 250ms ease, width 250ms ease;
   width: 20%;
 
   @for $i from 1 through 10 {
@@ -57,10 +98,9 @@ app-home {
     }
   }
 
-  @for $i from 1 through 5 {
+  @for $i from 1 through 10 {
     .math-problems--line-spacing-#{$i} & {
-      padding-bottom: map-get($line-spacing, $i);
-      padding-top: map-get($line-spacing, $i);
+      margin-bottom: map-get($line-spacing, $i);
     }
   }
 }
@@ -71,7 +111,7 @@ app-home {
 }
 
 .math-problem__number {
-  font-weight: bold;
+  font-weight: 500;
   left: 0;
   position: absolute;
   text-align: right;
@@ -87,7 +127,7 @@ app-home {
 }
 
 .math-problem__symbol {
-  bottom: 1.15em;
+  bottom: 1.5em;
   left: 2em;
   position: absolute;
 }
@@ -97,30 +137,37 @@ app-home {
   text-align: right;
 }
 
-.worksheet__instructions {
-  text-align: center;
-}
-
-.worksheet__name {
-  padding-right: 1rem;
-  padding-top: 1rem;
-  text-align: right;
-
-  &:after {
-    border-bottom: 2px solid #000;
-    content: "";
-    display: inline-block;
-    margin-left: .5rem;
-    width: 15rem;
+.math-problem__answer,
+.math-problem__value {
+  @for $i from 0 through 10 {
+    .math-problems--letter-spacing-#{$i} & {
+      letter-spacing: $i + px;
+    }
   }
 }
 
-.worksheet__title {
-  text-align: center;
+.math-problems {
+  flex-direction: row;
+  flex-wrap: wrap;
+  display: flex;
+  justify-content: flex-start;
 }
 
 @media print {
-  .worksheet-options {
+  .math-problem {
+    @for $i from 1 through 10 {
+      .math-problems--line-spacing-#{$i} & {
+        margin-bottom: map-get($line-spacing, $i) * 1.25;
+      }
+    }
+  }
+
+  .worksheet-content {
+    height: auto;
+    overflow-y: visible;
+  }
+
+  .worksheet-sidebar {
     display: none;
   }
 
@@ -128,6 +175,11 @@ app-home {
   .worksheet__card--landscape {
     height: auto;
     margin: 0;
+    padding: 0;
     width: 100%;
+  }
+
+  .worksheet__name {
+    margin-bottom: 1.5rem;
   }
 }

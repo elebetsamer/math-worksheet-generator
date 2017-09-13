@@ -1,5 +1,6 @@
 export class WorksheetOptions {
-  lineSpacing = 3;
+  letterSpacing = 3;
+  lineSpacing = 5;
   problemCount = 25;
   problemFontSize = 2;
   problemsPerRow = 5;

@@ -8,6 +8,7 @@ import { MathService } from '../math/math.service';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
+  letterSpacing: number;
   lineSpacing: number;
   mathProblemsClasses = {};
   mathService: MathService;
@@ -15,12 +16,14 @@ export class HomeComponent implements OnInit {
   problemsPerRow: number;
 
   constructor(mathService: MathService) {
+    this.letterSpacing = mathService.options.letterSpacing;
     this.lineSpacing = mathService.options.lineSpacing;
     this.mathService = mathService;
     this.problemFontSize = mathService.options.problemFontSize;
     this.problemsPerRow = mathService.options.problemsPerRow;
     this.mathProblemsClasses[`math-problems--columns-${this.problemsPerRow}`] = true;
     this.mathProblemsClasses[`math-problems--font-size-${this.problemFontSize}`] = true;
+    this.mathProblemsClasses[`math-problems--letter-spacing-${this.letterSpacing}`] = true;
     this.mathProblemsClasses[`math-problems--line-spacing-${this.lineSpacing}`] = true;
   }
 
@@ -30,6 +33,13 @@ export class HomeComponent implements OnInit {
 
   generateWorksheet() {
     this.mathService.generateProblems();
+  }
+
+  letterSpacingSliderChange(event) {
+    this.mathProblemsClasses[`math-problems--letter-spacing-${this.letterSpacing}`] = false;
+    this.letterSpacing = event.value;
+    this.mathProblemsClasses[`math-problems--letter-spacing-${this.letterSpacing}`] = true;
+    this.mathService.options.letterSpacing = this.letterSpacing;
   }
 
   lineSpacingSliderChange(event) {
