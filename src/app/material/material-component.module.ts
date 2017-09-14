@@ -13,7 +13,8 @@ import {
   MdInputModule,
   MdRippleModule,
   MdSliderModule,
-  MdSlideToggleModule
+  MdSlideToggleModule,
+  MdTooltipModule
 } from '@angular/material';
 
 @NgModule({
@@ -29,7 +30,8 @@ import {
     MdInputModule,
     MdRippleModule,
     MdSliderModule,
-    MdSlideToggleModule
+    MdSlideToggleModule,
+    MdTooltipModule
   ],
   exports: [
     MdButtonModule,
@@ -42,7 +44,8 @@ import {
     MdInputModule,
     MdRippleModule,
     MdSliderModule,
-    MdSlideToggleModule
+    MdSlideToggleModule,
+    MdTooltipModule
   ]
 })
 export class MaterialComponentModule { }

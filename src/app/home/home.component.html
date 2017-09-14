@@ -165,7 +165,7 @@
                 <md-slide-toggle color="primary" name="showAnswers" [(ngModel)]="mathService.options.showAnswers">Show answers</md-slide-toggle>
               </div>
               <div>
-                <md-slide-toggle color="primary" name="landscape" [(ngModel)]="mathService.options.landscape">Landscape mode</md-slide-toggle>
+                <md-slide-toggle color="primary" name="landscape" [(ngModel)]="mathService.options.landscape" mdTooltip="This is a preview only. You will have to adjust your printer settings to print in landscape mode." mdTooltipPosition="right">Landscape preview</md-slide-toggle>
               </div>
             </md-expansion-panel>
           </md-accordion>
