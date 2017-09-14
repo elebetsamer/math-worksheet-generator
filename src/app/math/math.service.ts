@@ -9,7 +9,7 @@ import {
   MultiplicationOptions,
   SubtractionOptions,
   WorksheetOptions
-} from '../worksheet-options';
+} from '../options';
 
 @Injectable()
 export class MathService {
