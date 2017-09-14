@@ -51,7 +51,7 @@
                   </div>
                   Number of subtrahends
                   <br>
-                  <md-slider color="primary" min="2" max="5" [value]="numberOfSubtrahends" (input)="numberOfSubtrahendsSliderChange($event)"></md-slider> {{numberOfSubtrahends}}
+                  <md-slider color="primary" min="1" max="4" [value]="numberOfSubtrahends" (input)="numberOfSubtrahendsSliderChange($event)"></md-slider> {{numberOfSubtrahends}}
                   <div class="worksheet-option__range-min-max" *ngFor="let subtrahend of mathService.options.subtractionOptions.subtrahendRanges; index as i">
                     <md-form-field>
                       <input mdInput type="number" placeholder="Subtrahend {{i+1}} Minimum" name="subtrahend-{{i}}-min" required [(ngModel)]="subtrahend.min">
