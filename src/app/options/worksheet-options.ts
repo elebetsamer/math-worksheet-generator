@@ -15,6 +15,7 @@ export class WorksheetOptions {
   problemFontSize = 2;
   problemsPerRow = 5;
   showAnswers = false;
+  showDateLine = true;
   showInstructions = true;
   showNameLine = true;
   showTitle = true;

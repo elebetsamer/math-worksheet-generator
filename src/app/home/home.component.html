@@ -139,6 +139,9 @@
                 <md-slide-toggle color="primary" name="showNameLine" [(ngModel)]="mathService.options.showNameLine">Show name line</md-slide-toggle>
               </div>
               <div>
+                <md-slide-toggle color="primary" name="showDateLine" [(ngModel)]="mathService.options.showDateLine">Show date line</md-slide-toggle>
+              </div>
+              <div>
                 <md-slide-toggle color="primary" name="showTitle" [(ngModel)]="mathService.options.showTitle">Show title</md-slide-toggle>
                 <br>
                 <md-form-field *ngIf="mathService.options.showTitle">
@@ -173,7 +176,10 @@
   <div class="worksheet-content">
     <md-card class="worksheet__card" [class.worksheet__card--landscape]="mathService.options.landscape" *ngIf="mathService.problems.length">
       <md-card-content>
-        <h2 class="worksheet__name" *ngIf="mathService.options.showNameLine">Name:</h2>
+        <h2 class="worksheet__name-date clearfix" *ngIf="mathService.options.showNameLine || mathService.options.showDateLine">
+          <span class="worksheet__name" *ngIf="mathService.options.showNameLine">Name:</span>
+          <span class="worksheet__date" *ngIf="mathService.options.showDateLine">Date:</span>
+        </h2>
         <h1 class="worksheet__title" *ngIf="mathService.options.showTitle">{{mathService.options.title}}</h1>
         <h3 class="worksheet__instructions" *ngIf="mathService.options.showInstructions">{{mathService.options.instructions}}</h3>
         <div class="math-problems" [ngClass]="mathProblemsClasses">
