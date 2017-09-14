@@ -1,4 +1,6 @@
-$base-line-spacing: 16px;
+@import "../../variables";
+
+$base-line-spacing: 14px;
 
 $font-sizes: (
   1: .75rem,
@@ -22,28 +24,119 @@ $line-spacing: (
   10: $base-line-spacing * 10
 );
 
+$sidebar-bg: #fff;
+$sidebar-width: 300px;
+
 .worksheet {
   align-items: stretch;
   flex-direction: row;
   display: flex;
   height: 100%;
+  position: relative;
 }
 
 .worksheet-content {
+  background-color: #78909C;
   flex-grow: 1;
   height: 100%;
   overflow-y: auto;
+  position: relative;
+}
+
+.worksheet-display-disclaimer {
+  background-color: #F44336;
+  color: #fff;
+  font-size: .875rem;
+  font-style: italic;
+  left: 0;
+  padding: .5rem 1rem;
+  position: absolute;
+  right: 0;
+  text-align: center;
+  top: 0;
+}
+
+.worksheet-option__range-min-max {
+  .mat-form-field {
+    width: 75px;
+
+    &:first-child {
+      margin-right: 10px;
+      width: 125px;
+    }
+  }
+}
+
+.worksheet-options {
+  .mat-expansion-panel {
+    background-color: transparent;
+    border-top: 1px solid #ccc;
+    margin: 0 -24px;
+    transition: background 250ms ease;
+
+    &:last-of-type {
+      border-bottom: 1px solid #ccc;
+    }
+
+    // &.mat-expanded {
+    //   background-color: #FFF8E1;
+    // }
+  }
+}
+
+.worksheet-options__problem-type {
+  border: 1px solid transparent;
+  margin-left: -24px;
+  margin-right: -24px;
+  padding: 5px 24px;
+  transition: background 250ms ease, border-color 250ms ease, padding 250ms ease;
+}
+
+.worksheet-options__problem-type--enabled {
+  background-color: #f5f5f5;
+  border-bottom-color: $gray-500;
+  border-top-color: $gray-500;
+  padding-bottom: 10px;
+  padding-top: 10px;
+
+  &:nth-child(odd) {
+    background-color: #eee;
+  }
+
+  + .worksheet-options__problem-type--enabled {
+    border-top-color: transparent;
+  }
 }
 
 .worksheet-sidebar {
-  background-color: #fff;
-  height: 100%;
+  background-color: $sidebar-bg;
+  height: calc(100% - 84px); // leave room for the generate button
   overflow-y: auto;
+  position: relative;
+  width: $sidebar-width;
+}
+
+.worksheet__generate {
+  background-color: $sidebar-bg;
+  left: 0;
+  padding: 24px;
+  position: fixed;
+  bottom: 0;
+  width: $sidebar-width;
+  z-index: 10;
+
+  button {
+    display: block;
+    font-weight: 400;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    width: 100%;
+  }
 }
 
 .worksheet__card {
   height: 660pt; // emulate 8.5x11 paper height
-  margin: 1rem auto;
+  margin: 75px auto 1rem;
   padding: 2rem;
   width: 511pt; // emulate 8.5x11 paper width
 }
@@ -81,7 +174,7 @@ $line-spacing: (
 
 .math-problem {
   box-sizing: border-box;
-  margin-bottom: 1rem;
+  margin-top: 1rem;
   text-align: center;
   transition: font-size 250ms ease, margin 250ms ease, width 250ms ease;
   width: 20%;
@@ -89,6 +182,10 @@ $line-spacing: (
   @for $i from 1 through 10 {
     .math-problems--columns-#{$i} & {
       width: (100% / $i);
+
+      &:nth-child(-n+#{$i}) {
+        margin-top: 0;
+      }
     }
   }
 
@@ -100,13 +197,14 @@ $line-spacing: (
 
   @for $i from 1 through 10 {
     .math-problems--line-spacing-#{$i} & {
-      margin-bottom: map-get($line-spacing, $i);
+      margin-top: map-get($line-spacing, $i);
     }
   }
 }
 
 .math-problem__answer {
   border-top: 2px solid #000;
+  color: #E91E63;
   text-align: right;
 }
 
@@ -157,18 +255,15 @@ $line-spacing: (
   .math-problem {
     @for $i from 1 through 10 {
       .math-problems--line-spacing-#{$i} & {
-        margin-bottom: map-get($line-spacing, $i) * 1.25;
+        margin-top: map-get($line-spacing, $i) * 1.5;
       }
     }
   }
 
   .worksheet-content {
+    background-color: transparent;
     height: auto;
     overflow-y: visible;
-  }
-
-  .worksheet-sidebar {
-    display: none;
   }
 
   .worksheet__card,

@@ -8,11 +8,13 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { MathService } from './math/math.service';
 import { MaterialComponentModule } from './material/material-component.module';
+import { SafePipe } from './safe.pipe';
 
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent
+    HomeComponent,
+    SafePipe
   ],
   imports: [
     BrowserModule,

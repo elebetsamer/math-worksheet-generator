@@ -12,10 +12,17 @@ app-home {
 app-root,
 app-home {
   display: block;
+  position: relative;
 }
 
 .d-print-none {
   @media print {
     display: none !important;
+  }
+}
+
+@media print {
+  body {
+    background-color: transparent;
   }
 }
