@@ -14,7 +14,6 @@ export class WorksheetGeneratorComponent implements OnInit {
   letterSpacing: number;
   lineSpacing: number;
   mathProblemsClasses = {};
-  mathService: MathService;
   numberOfAddends: number;
   numberOfDecimals: number;
   numberOfFactors: number;
@@ -22,16 +21,15 @@ export class WorksheetGeneratorComponent implements OnInit {
   problemFontSize: number;
   problemsPerRow: number;
 
-  constructor(mathService: MathService, public analytics: AnalyticsService) {
-    this.letterSpacing = mathService.options.letterSpacing;
-    this.lineSpacing = mathService.options.lineSpacing;
-    this.mathService = mathService;
-    this.numberOfAddends = mathService.options.additionOptions.numberOfAddends;
-    this.numberOfDecimals = mathService.options.divisionOptions.decimalPlaces;
-    this.numberOfFactors = mathService.options.multiplicationOptions.numberOfFactors;
-    this.numberOfSubtrahends = mathService.options.subtractionOptions.numberOfSubtrahends;
-    this.problemFontSize = mathService.options.problemFontSize;
-    this.problemsPerRow = mathService.options.problemsPerRow;
+  constructor(public mathService: MathService, public analytics: AnalyticsService) {
+    this.letterSpacing = this.mathService.options.letterSpacing;
+    this.lineSpacing = this.mathService.options.lineSpacing;
+    this.numberOfAddends = this.mathService.options.additionOptions.numberOfAddends;
+    this.numberOfDecimals = this.mathService.options.divisionOptions.decimalPlaces;
+    this.numberOfFactors = this.mathService.options.multiplicationOptions.numberOfFactors;
+    this.numberOfSubtrahends = this.mathService.options.subtractionOptions.numberOfSubtrahends;
+    this.problemFontSize = this.mathService.options.problemFontSize;
+    this.problemsPerRow = this.mathService.options.problemsPerRow;
     this.mathProblemsClasses[`math-problems--columns-${this.problemsPerRow}`] = true;
     this.mathProblemsClasses[`math-problems--font-size-${this.problemFontSize}`] = true;
     this.mathProblemsClasses[`math-problems--letter-spacing-${this.letterSpacing}`] = true;
