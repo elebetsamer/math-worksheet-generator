@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { HomeComponent } from './worksheet-generator/home.component';
+import { HomeComponent } from './worksheet-generator/worksheet-generator.component';
 
 const routes: Routes = [
   {

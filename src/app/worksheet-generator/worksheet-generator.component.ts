@@ -6,8 +6,8 @@ import { ProblemType } from '../math/problem-type.enum';
 
 @Component({
   selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss']
+  templateUrl: './worksheet-generator.component.html',
+  styleUrls: ['./worksheet-generator.component.scss']
 })
 export class HomeComponent implements OnInit {
   letterSpacing: number;
