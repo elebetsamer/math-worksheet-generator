@@ -43,6 +43,8 @@ export class HomeComponent implements OnInit {
 
   generateWorksheet() {
     this.mathService.generateProblems();
+
+    console.log(JSON.stringify(this.mathService));
   }
 
   getDivisionNumberFormat() {
