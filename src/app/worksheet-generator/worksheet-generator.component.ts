@@ -5,6 +5,8 @@ import { MathProblem } from '../math/math-problem';
 import { MathService } from '../math/math.service';
 import { ProblemType } from '../math/problem-type.enum';
 
+declare let window: any;
+
 @Component({
   selector: 'app-worksheet-generator',
   templateUrl: './worksheet-generator.component.html',
@@ -70,6 +72,12 @@ export class WorksheetGeneratorComponent implements OnInit {
     this.mathProblemsClasses[`math-problems--line-spacing-${this.lineSpacing}`] = false;
     this.lineSpacing = this.mathService.options.lineSpacing = event.value;
     this.mathProblemsClasses[`math-problems--line-spacing-${this.lineSpacing}`] = true;
+  }
+
+  print() {
+    this.analytics.trackEventWithCategory('worksheet', 'print');
+
+    window.print();
   }
 
   numberOfAddendsSliderChange(event) {

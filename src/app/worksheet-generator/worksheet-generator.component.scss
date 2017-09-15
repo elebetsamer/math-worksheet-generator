@@ -185,6 +185,13 @@ $sidebar-width: 300px;
   }
 }
 
+.worksheet__print-button {
+  bottom: 1rem;
+  position: fixed;
+  right: 1rem;
+  z-index: 10;
+}
+
 .worksheet__title {
   font-weight: 500;
   margin: 0;

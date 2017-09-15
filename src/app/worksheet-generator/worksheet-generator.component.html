@@ -204,7 +204,11 @@
     <div class="worksheet-display-disclaimer mat-elevation-z5 d-print-none" *ngIf="mathService.problems.length">
       The view shown here is meant to simulate a printed page (8.5x11 inch standard US paper size).
       <br>
-      Your actual printout may look different depending on a number of factors including printer settings.</div>
+      Your actual printout may look different depending on a number of factors including printer settings.
+    </div>
+    <button class="worksheet__print-button d-print-none" md-fab color="accent" *ngIf="mathService.problems.length">
+      <md-icon class="md-24" aria-label="Print the worksheet" (click)="print()">print</md-icon>
+    </button>
   </div>
 </div>
 <div class="worksheet__generate mat-elevation-z5 d-print-none">
