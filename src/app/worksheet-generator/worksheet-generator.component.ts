@@ -5,7 +5,7 @@ import { MathService } from '../math/math.service';
 import { ProblemType } from '../math/problem-type.enum';
 
 @Component({
-  selector: 'app-home',
+  selector: 'app-worksheet-generator',
   templateUrl: './worksheet-generator.component.html',
   styleUrls: ['./worksheet-generator.component.scss']
 })
