@@ -9,7 +9,7 @@ import { ProblemType } from '../math/problem-type.enum';
   templateUrl: './worksheet-generator.component.html',
   styleUrls: ['./worksheet-generator.component.scss']
 })
-export class HomeComponent implements OnInit {
+export class WorksheetGeneratorComponent implements OnInit {
   letterSpacing: number;
   lineSpacing: number;
   mathProblemsClasses = {};

@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { HomeComponent } from './worksheet-generator.component';
+import { WorksheetGeneratorComponent } from './worksheet-generator.component';
 
-describe('HomeComponent', () => {
-  let component: HomeComponent;
-  let fixture: ComponentFixture<HomeComponent>;
+describe('WorksheetGeneratorComponent', () => {
+  let component: WorksheetGeneratorComponent;
+  let fixture: ComponentFixture<WorksheetGeneratorComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ HomeComponent ]
+      declarations: [ WorksheetGeneratorComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(HomeComponent);
+    fixture = TestBed.createComponent(WorksheetGeneratorComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
