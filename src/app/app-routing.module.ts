@@ -5,8 +5,17 @@ import { WorksheetGeneratorComponent } from './worksheet-generator/worksheet-gen
 
 const routes: Routes = [
   {
-    path: '',
+    path: 'worksheet-generator',
     component: WorksheetGeneratorComponent
+  },
+  {
+    path: 'worksheet-generator/:id',
+    component: WorksheetGeneratorComponent
+  },
+  {
+    path: '',
+    redirectTo: '/worksheet-generator',
+    pathMatch: 'full'
   }
 ];
 
