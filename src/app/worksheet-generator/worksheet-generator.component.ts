@@ -45,6 +45,8 @@ export class WorksheetGeneratorComponent implements OnInit {
   generateWorksheet() {
     this.analytics.trackEventWithCategory('worksheet', 'generate');
 
+    this.mathService.clearProblems();
+
     this.mathService.generateProblems();
 
     console.log(JSON.stringify(this.mathService));

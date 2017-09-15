@@ -21,10 +21,14 @@ export class MathService {
     this.problems = new Array<MathProblem>();
   }
 
+  clearProblems() {
+    this.problems = [];
+  }
+
   generateProblems() {
     const availableProblemTypes: ProblemType[] = [];
 
-    this.problems = [];
+    this.clearProblems();
 
     if (this.options.additionOptions.enabled) {
       availableProblemTypes.push(ProblemType.Addition);
