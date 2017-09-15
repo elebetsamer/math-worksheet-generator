@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+import { AnalyticsService } from './analytics/analytics.service';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { WorksheetGeneratorComponent } from './worksheet-generator/worksheet-generator.component';
@@ -24,6 +25,7 @@ import { SafePipe } from './safe.pipe';
     MaterialComponentModule
   ],
   providers: [
+    AnalyticsService,
     MathService
   ],
   bootstrap: [AppComponent]

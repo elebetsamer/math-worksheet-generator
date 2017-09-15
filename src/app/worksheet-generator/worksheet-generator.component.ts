@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
+import { AnalyticsService } from '../analytics/analytics.service';
 import { MathProblem } from '../math/math-problem';
 import { MathService } from '../math/math.service';
 import { ProblemType } from '../math/problem-type.enum';
@@ -21,7 +22,7 @@ export class WorksheetGeneratorComponent implements OnInit {
   problemFontSize: number;
   problemsPerRow: number;
 
-  constructor(mathService: MathService) {
+  constructor(mathService: MathService, public analytics: AnalyticsService) {
     this.letterSpacing = mathService.options.letterSpacing;
     this.lineSpacing = mathService.options.lineSpacing;
     this.mathService = mathService;
@@ -42,6 +43,8 @@ export class WorksheetGeneratorComponent implements OnInit {
   }
 
   generateWorksheet() {
+    this.analytics.trackEventWithCategory('worksheet', 'generate');
+
     this.mathService.generateProblems();
 
     console.log(JSON.stringify(this.mathService));
