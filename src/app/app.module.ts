@@ -34,6 +34,7 @@ import { SafePipe } from './safe.pipe';
   ],
   providers: [
     AnalyticsService,
+    AuthService,
     WorksheetService
   ],
   bootstrap: [AppComponent]
