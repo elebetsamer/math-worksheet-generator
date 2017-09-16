@@ -1,6 +1,6 @@
 import { TestBed, inject } from '@angular/core/testing';
 
-import { MathService } from './math.service';
+import { MathService } from './worksheet.service';
 
 describe('MathService', () => {
   beforeEach(() => {

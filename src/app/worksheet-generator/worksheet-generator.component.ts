@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { AnalyticsService } from '../analytics/analytics.service';
 import { MathProblem } from '../worksheet/math-problem';
-import { MathService } from '../worksheet/math.service';
+import { MathService } from '../worksheet/worksheet.service';
 import { ProblemType } from '../worksheet/problem-type.enum';
 
 declare let window: any;

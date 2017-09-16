@@ -7,7 +7,7 @@ import { AnalyticsService } from './analytics/analytics.service';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { WorksheetGeneratorComponent } from './worksheet-generator/worksheet-generator.component';
-import { MathService } from './worksheet/math.service';
+import { MathService } from './worksheet/worksheet.service';
 import { MaterialComponentModule } from './material/material-component.module';
 import { SafePipe } from './safe.pipe';
 
