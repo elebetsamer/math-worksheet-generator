@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 
 import { AnalyticsService } from '../analytics/analytics.service';
-import { MathProblem } from '../math/math-problem';
-import { MathService } from '../math/math.service';
-import { ProblemType } from '../math/problem-type.enum';
+import { MathProblem } from '../worksheet/math-problem';
+import { MathService } from '../worksheet/math.service';
+import { ProblemType } from '../worksheet/problem-type.enum';
 
 declare let window: any;
 
