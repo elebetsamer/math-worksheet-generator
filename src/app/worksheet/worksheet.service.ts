@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 
+import { AngularFireDatabase, FirebaseObjectObservable } from 'angularfire2/database';
+
 import { MathProblem } from './math-problem';
 import { ProblemType } from './problem-type.enum';
 import {
@@ -13,10 +15,11 @@ import {
 
 @Injectable()
 export class WorksheetService {
+  id: string;
   options: WorksheetOptions;
   problems: MathProblem[];
 
-  constructor() {
+  constructor(private db: AngularFireDatabase) {
     this.options = new WorksheetOptions();
     this.problems = new Array<MathProblem>();
   }
@@ -27,6 +30,9 @@ export class WorksheetService {
 
   generateProblems() {
     const availableProblemTypes: ProblemType[] = [];
+
+    // since we are generating new problems, we should consider this a new worksheet
+    this.id = null;
 
     this.clearProblems();
 
@@ -74,6 +80,25 @@ export class WorksheetService {
 
           break;
       }
+    }
+  }
+
+  save() {
+    const worksheets = this.db.list('/worksheets');
+    const savePayload = {
+      options: this.options,
+      problems: this.problems
+    };
+
+    if (this.id) {
+      worksheets.update(this.id, savePayload).then(result => {
+        console.log('Updated worksheet');
+      });
+    } else {
+      worksheets.push(savePayload).then(result => {
+        this.id = result.key;
+        console.log('Saved worksheet');
+      });
     }
   }
 

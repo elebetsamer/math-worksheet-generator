@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { AnalyticsService } from '../analytics/analytics.service';
+import { AuthService } from '../auth/auth.service';
 import { MathProblem } from '../worksheet/math-problem';
 import { WorksheetService } from '../worksheet/worksheet.service';
 import { ProblemType } from '../worksheet/problem-type.enum';
@@ -23,7 +24,9 @@ export class WorksheetGeneratorComponent implements OnInit {
   problemFontSize: number;
   problemsPerRow: number;
 
-  constructor(public worksheetService: WorksheetService, public analytics: AnalyticsService) {
+  private isLoggedIn = false;
+
+  constructor(public worksheetService: WorksheetService, private analytics: AnalyticsService, public authService: AuthService) {
     this.letterSpacing = this.worksheetService.options.letterSpacing;
     this.lineSpacing = this.worksheetService.options.lineSpacing;
     this.numberOfAddends = this.worksheetService.options.additionOptions.numberOfAddends;
@@ -40,6 +43,16 @@ export class WorksheetGeneratorComponent implements OnInit {
 
   ngOnInit() {
     console.dir(this.worksheetService);
+
+    this.authService.user.subscribe(user => {
+      console.log(`authService.user.subscribe`, user);
+
+      if (user) {
+        this.isLoggedIn = true;
+      } else {
+        this.isLoggedIn = false;
+      }
+    });
   }
 
   generateWorksheet() {
@@ -49,7 +62,9 @@ export class WorksheetGeneratorComponent implements OnInit {
 
     this.worksheetService.generateProblems();
 
-    console.log(JSON.stringify(this.worksheetService));
+    if (!this.isLoggedIn) {
+      this.authService.loginAnonymous();
+    }
   }
 
   getDivisionNumberFormat() {
@@ -74,12 +89,6 @@ export class WorksheetGeneratorComponent implements OnInit {
     this.mathProblemsClasses[`math-problems--line-spacing-${this.lineSpacing}`] = false;
     this.lineSpacing = this.worksheetService.options.lineSpacing = event.value;
     this.mathProblemsClasses[`math-problems--line-spacing-${this.lineSpacing}`] = true;
-  }
-
-  print() {
-    this.analytics.trackEventWithCategory('worksheet', 'print');
-
-    window.print();
   }
 
   numberOfAddendsSliderChange(event) {
@@ -122,6 +131,12 @@ export class WorksheetGeneratorComponent implements OnInit {
     this.numberOfSubtrahends = this.worksheetService.options.subtractionOptions.numberOfSubtrahends;
   }
 
+  print() {
+    this.analytics.trackEventWithCategory('worksheet', 'print');
+
+    window.print();
+  }
+
   problemFontSizeSliderChange(event) {
     this.mathProblemsClasses[`math-problems--font-size-${this.problemFontSize}`] = false;
     this.problemFontSize = this.worksheetService.options.problemFontSize = event.value;
@@ -132,6 +147,10 @@ export class WorksheetGeneratorComponent implements OnInit {
     this.mathProblemsClasses[`math-problems--columns-${this.problemsPerRow}`] = false;
     this.problemsPerRow = this.worksheetService.options.problemsPerRow = event.value;
     this.mathProblemsClasses[`math-problems--columns-${this.problemsPerRow}`] = true;
+  }
+
+  save() {
+    this.worksheetService.save();
   }
 
   showDecimalsChange(event) {

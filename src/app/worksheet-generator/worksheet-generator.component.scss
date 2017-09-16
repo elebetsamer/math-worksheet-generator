@@ -171,6 +171,14 @@ $sidebar-width: 300px;
   }
 }
 
+.worksheet__id {
+  bottom: 0;
+  font-style: italic;
+  left: 50%;
+  position: absolute;
+  transform: translateX(-50%);
+}
+
 .worksheet__name {
   float: left;
   text-align: left;
@@ -186,9 +194,16 @@ $sidebar-width: 300px;
 }
 
 .worksheet__print-button {
-  bottom: 1rem;
+  bottom: 2rem;
   position: fixed;
-  right: 1rem;
+  right: 2rem;
+  z-index: 10;
+}
+
+.worksheet__save-button {
+  bottom: 7rem;
+  position: fixed;
+  right: 2rem;
   z-index: 10;
 }
 
@@ -297,6 +312,7 @@ $sidebar-width: 300px;
   .worksheet__card--landscape {
     height: auto;
     margin: 0;
+    min-height: 100%; // make sure the card fills the full space, so we can position the worksheet id at the bottom
     padding: 0;
     width: 100%;
   }
