@@ -1,6 +1,14 @@
-# MathWorksheetGenerator
+# Math Worksheet Generator
+
+This project is an angular application designed to generate basic math work sheets. I have a son in gradeschool and we like to keep him on top of his math skills, so I created this to help with that process. I found some static worksheet online, but once you go through them, you need to either repeat them again or find some more somewhere else. I also found pretty good worksheet generator online as well, but I didn't like some things about it. I figured the easiest solution was to just create on myself with the options I needed and liked. So this project is the outcome of a few nights work.
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.4.1.
+
+## TODO
+
+- [ ] Add "no carrying" option to addition problems
+- [ ] Add "no borrowing" option to subtraction problems
+- [ ] Add horizontal display option
 
 ## Development server
 
