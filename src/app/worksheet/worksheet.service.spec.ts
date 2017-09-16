@@ -1,15 +1,15 @@
 import { TestBed, inject } from '@angular/core/testing';
 
-import { MathService } from './worksheet.service';
+import { WorksheetService } from './worksheet.service';
 
-describe('MathService', () => {
+describe('WorksheetService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [MathService]
+      providers: [WorksheetService]
     });
   });
 
-  it('should be created', inject([MathService], (service: MathService) => {
+  it('should be created', inject([WorksheetService], (service: WorksheetService) => {
     expect(service).toBeTruthy();
   }));
 });

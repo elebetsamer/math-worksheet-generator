@@ -12,7 +12,7 @@ import {
 } from '../options';
 
 @Injectable()
-export class MathService {
+export class WorksheetService {
   options: WorksheetOptions;
   problems: MathProblem[];
 

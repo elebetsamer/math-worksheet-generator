@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { AnalyticsService } from '../analytics/analytics.service';
 import { MathProblem } from '../worksheet/math-problem';
-import { MathService } from '../worksheet/worksheet.service';
+import { WorksheetService } from '../worksheet/worksheet.service';
 import { ProblemType } from '../worksheet/problem-type.enum';
 
 declare let window: any;
@@ -23,15 +23,15 @@ export class WorksheetGeneratorComponent implements OnInit {
   problemFontSize: number;
   problemsPerRow: number;
 
-  constructor(public mathService: MathService, public analytics: AnalyticsService) {
-    this.letterSpacing = this.mathService.options.letterSpacing;
-    this.lineSpacing = this.mathService.options.lineSpacing;
-    this.numberOfAddends = this.mathService.options.additionOptions.numberOfAddends;
-    this.numberOfDecimals = this.mathService.options.divisionOptions.decimalPlaces;
-    this.numberOfFactors = this.mathService.options.multiplicationOptions.numberOfFactors;
-    this.numberOfSubtrahends = this.mathService.options.subtractionOptions.numberOfSubtrahends;
-    this.problemFontSize = this.mathService.options.problemFontSize;
-    this.problemsPerRow = this.mathService.options.problemsPerRow;
+  constructor(public worksheetService: WorksheetService, public analytics: AnalyticsService) {
+    this.letterSpacing = this.worksheetService.options.letterSpacing;
+    this.lineSpacing = this.worksheetService.options.lineSpacing;
+    this.numberOfAddends = this.worksheetService.options.additionOptions.numberOfAddends;
+    this.numberOfDecimals = this.worksheetService.options.divisionOptions.decimalPlaces;
+    this.numberOfFactors = this.worksheetService.options.multiplicationOptions.numberOfFactors;
+    this.numberOfSubtrahends = this.worksheetService.options.subtractionOptions.numberOfSubtrahends;
+    this.problemFontSize = this.worksheetService.options.problemFontSize;
+    this.problemsPerRow = this.worksheetService.options.problemsPerRow;
     this.mathProblemsClasses[`math-problems--columns-${this.problemsPerRow}`] = true;
     this.mathProblemsClasses[`math-problems--font-size-${this.problemFontSize}`] = true;
     this.mathProblemsClasses[`math-problems--letter-spacing-${this.letterSpacing}`] = true;
@@ -39,22 +39,22 @@ export class WorksheetGeneratorComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.dir(this.mathService);
+    console.dir(this.worksheetService);
   }
 
   generateWorksheet() {
     this.analytics.trackEventWithCategory('worksheet', 'generate');
 
-    this.mathService.clearProblems();
+    this.worksheetService.clearProblems();
 
-    this.mathService.generateProblems();
+    this.worksheetService.generateProblems();
 
-    console.log(JSON.stringify(this.mathService));
+    console.log(JSON.stringify(this.worksheetService));
   }
 
   getDivisionNumberFormat() {
-    if (this.mathService.options.divisionOptions.showDecimals) {
-      return `1.0-${this.mathService.options.divisionOptions.decimalPlaces}`;
+    if (this.worksheetService.options.divisionOptions.showDecimals) {
+      return `1.0-${this.worksheetService.options.divisionOptions.decimalPlaces}`;
     }
 
     return `1.0-0`;
@@ -66,13 +66,13 @@ export class WorksheetGeneratorComponent implements OnInit {
 
   letterSpacingSliderChange(event) {
     this.mathProblemsClasses[`math-problems--letter-spacing-${this.letterSpacing}`] = false;
-    this.letterSpacing = this.mathService.options.letterSpacing = event.value;
+    this.letterSpacing = this.worksheetService.options.letterSpacing = event.value;
     this.mathProblemsClasses[`math-problems--letter-spacing-${this.letterSpacing}`] = true;
   }
 
   lineSpacingSliderChange(event) {
     this.mathProblemsClasses[`math-problems--line-spacing-${this.lineSpacing}`] = false;
-    this.lineSpacing = this.mathService.options.lineSpacing = event.value;
+    this.lineSpacing = this.worksheetService.options.lineSpacing = event.value;
     this.mathProblemsClasses[`math-problems--line-spacing-${this.lineSpacing}`] = true;
   }
 
@@ -84,65 +84,65 @@ export class WorksheetGeneratorComponent implements OnInit {
 
   numberOfAddendsSliderChange(event) {
     if (this.numberOfAddends > event.value) {
-      this.mathService.options.additionOptions.removeAddend();
+      this.worksheetService.options.additionOptions.removeAddend();
     }
 
     if (this.numberOfAddends < event.value) {
-      this.mathService.options.additionOptions.addAddend();
+      this.worksheetService.options.additionOptions.addAddend();
     }
 
-    this.numberOfAddends = this.mathService.options.additionOptions.numberOfAddends;
+    this.numberOfAddends = this.worksheetService.options.additionOptions.numberOfAddends;
   }
 
   numberOfDecimalsSliderChange(event) {
-    this.numberOfDecimals = this.mathService.options.divisionOptions.decimalPlaces = event.value;
+    this.numberOfDecimals = this.worksheetService.options.divisionOptions.decimalPlaces = event.value;
   }
 
   numberOfFactorsSliderChange(event) {
     if (this.numberOfFactors > event.value) {
-      this.mathService.options.multiplicationOptions.removeFactor();
+      this.worksheetService.options.multiplicationOptions.removeFactor();
     }
 
     if (this.numberOfFactors < event.value) {
-      this.mathService.options.multiplicationOptions.addFactor();
+      this.worksheetService.options.multiplicationOptions.addFactor();
     }
 
-    this.numberOfFactors = this.mathService.options.multiplicationOptions.numberOfFactors;
+    this.numberOfFactors = this.worksheetService.options.multiplicationOptions.numberOfFactors;
   }
 
   numberOfSubtrahendsSliderChange(event) {
     if (this.numberOfSubtrahends > event.value) {
-      this.mathService.options.subtractionOptions.removeSubtrahend();
+      this.worksheetService.options.subtractionOptions.removeSubtrahend();
     }
 
     if (this.numberOfSubtrahends < event.value) {
-      this.mathService.options.subtractionOptions.addSubtrahend();
+      this.worksheetService.options.subtractionOptions.addSubtrahend();
     }
 
-    this.numberOfSubtrahends = this.mathService.options.subtractionOptions.numberOfSubtrahends;
+    this.numberOfSubtrahends = this.worksheetService.options.subtractionOptions.numberOfSubtrahends;
   }
 
   problemFontSizeSliderChange(event) {
     this.mathProblemsClasses[`math-problems--font-size-${this.problemFontSize}`] = false;
-    this.problemFontSize = this.mathService.options.problemFontSize = event.value;
+    this.problemFontSize = this.worksheetService.options.problemFontSize = event.value;
     this.mathProblemsClasses[`math-problems--font-size-${this.problemFontSize}`] = true;
   }
 
   problemsPerRowSliderChange(event) {
     this.mathProblemsClasses[`math-problems--columns-${this.problemsPerRow}`] = false;
-    this.problemsPerRow = this.mathService.options.problemsPerRow = event.value;
+    this.problemsPerRow = this.worksheetService.options.problemsPerRow = event.value;
     this.mathProblemsClasses[`math-problems--columns-${this.problemsPerRow}`] = true;
   }
 
   showDecimalsChange(event) {
     if (event.checked) {
-      this.mathService.options.divisionOptions.showRemainders = false;
+      this.worksheetService.options.divisionOptions.showRemainders = false;
     }
   }
 
   showRemaindersChange(event) {
     if (event.checked) {
-      this.mathService.options.divisionOptions.showDecimals = false;
+      this.worksheetService.options.divisionOptions.showDecimals = false;
     }
   }
 }
