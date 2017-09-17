@@ -24,8 +24,8 @@ export class WorksheetService {
     this.problems = new Array<MathProblem>();
   }
 
-  getById(id: string): FirebaseObjectObservable<WorksheetService> {
-    return this.db.object(`/worksheets/${id}`);
+  addProblem(problem: MathProblem) {
+    this.problems.push(problem);
   }
 
   clearProblems() {
@@ -61,22 +61,22 @@ export class WorksheetService {
 
       switch (problemType) {
         case ProblemType.Addition:
-          this.problems.push(this.getAdditionProblem(this.options.additionOptions));
+          this.addProblem(this.getAdditionProblem(this.options.additionOptions));
           break;
         case ProblemType.Division:
-          this.problems.push(this.getDivisionProblem(this.options.divisionOptions));
+          this.addProblem(this.getDivisionProblem(this.options.divisionOptions));
           break;
         case ProblemType.Multiplication:
-          this.problems.push(this.getMultiplicationProblem(this.options.multiplicationOptions));
+          this.addProblem(this.getMultiplicationProblem(this.options.multiplicationOptions));
           break;
         case ProblemType.Subtraction:
           const problem = this.getSubtractionProblem(this.options.subtractionOptions);
 
           if (this.options.subtractionOptions.allowNegativeAnswers) {
-            this.problems.push(problem);
+            this.addProblem(problem);
           } else {
             if (problem.answer >= 0) {
-              this.problems.push(problem);
+              this.addProblem(problem);
             } else {
               i--; // it was a negative answer, so we don't want to add it, reset the loop counter
             }
@@ -85,6 +85,10 @@ export class WorksheetService {
           break;
       }
     }
+  }
+
+  getById(id: string): FirebaseObjectObservable<WorksheetService> {
+    return this.db.object(`/worksheets/${id}`);
   }
 
   save() {
@@ -108,6 +112,20 @@ export class WorksheetService {
 
   updateFromJson(jsonObject: WorksheetService) {
     this.options.updateFromJson(jsonObject.options);
+
+    this.clearProblems();
+
+    jsonObject.problems.forEach(jsonProblem => {
+      let problem = new MathProblem(jsonProblem.values[0], jsonProblem.values[1], jsonProblem.problemType);
+
+      if (jsonProblem.values.length > 2) {
+        for (let i = 2; i < jsonProblem.values.length; i++) {
+          problem.addValue(jsonProblem.values[i]);
+        }
+      }
+
+      this.addProblem(problem);
+    });
   }
 
   private getAdditionProblem(options: AdditionOptions) {

@@ -45,6 +45,7 @@ export class WorksheetGeneratorComponent implements OnInit {
 
       if (id) {
         this.worksheetService.getById(id).subscribe(worksheetService => {
+          this.worksheetService.id = id;
           this.worksheetService.updateFromJson(worksheetService);
           this.initialize();
         });
