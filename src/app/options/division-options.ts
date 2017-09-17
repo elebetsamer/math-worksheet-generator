@@ -7,4 +7,13 @@ export class DivisionOptions {
   enabled = false;
   showDecimals = true;
   showRemainders = false;
+
+  updateFromJson(jsonObject: DivisionOptions) {
+    this.decimalPlaces = jsonObject.decimalPlaces;
+    this.dividendRange = jsonObject.dividendRange;
+    this.divisorRange = jsonObject.divisorRange;
+    this.enabled = jsonObject.enabled;
+    this.showDecimals = jsonObject.showDecimals;
+    this.showRemainders = jsonObject.showRemainders;
+  }
 }

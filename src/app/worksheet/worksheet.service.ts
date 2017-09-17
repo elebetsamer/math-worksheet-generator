@@ -106,6 +106,10 @@ export class WorksheetService {
     }
   }
 
+  updateFromJson(jsonObject: WorksheetService) {
+    this.options.updateFromJson(jsonObject.options);
+  }
+
   private getAdditionProblem(options: AdditionOptions) {
     const topAddend = this.getRandomNumberFromRange(options.addendRanges[0]);
     const bottomAddend = this.getRandomNumberFromRange(options.addendRanges[1]);

@@ -20,4 +20,9 @@ export class MultiplicationOptions {
   removeFactor() {
     this.factorRanges.splice(this.factorRanges.length - 1, 1);
   }
+
+  updateFromJson(jsonObject: MultiplicationOptions) {
+    this.enabled = jsonObject.enabled;
+    this.factorRanges = jsonObject.factorRanges;
+  }
 }

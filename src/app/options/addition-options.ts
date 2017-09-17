@@ -20,4 +20,9 @@ export class AdditionOptions {
   removeAddend() {
     this.addendRanges.splice(this.addendRanges.length - 1, 1);
   }
+
+  updateFromJson(jsonObject: AdditionOptions) {
+    this.addendRanges = jsonObject.addendRanges;
+    this.enabled = jsonObject.enabled;
+  }
 }

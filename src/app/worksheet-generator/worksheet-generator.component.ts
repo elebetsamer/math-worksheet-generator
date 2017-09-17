@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, ParamMap } from '@angular/router';
+import 'rxjs/add/operator/switchMap';
 
 import { AnalyticsService } from '../analytics/analytics.service';
 import { AuthService } from '../auth/auth.service';
@@ -23,29 +25,34 @@ export class WorksheetGeneratorComponent implements OnInit {
   numberOfSubtrahends: number;
   problemFontSize: number;
   problemsPerRow: number;
+  worksheetService: WorksheetService;
 
   private isLoggedIn = false;
 
-  constructor(public worksheetService: WorksheetService, private analytics: AnalyticsService, public authService: AuthService) {
-    this.letterSpacing = this.worksheetService.options.letterSpacing;
-    this.lineSpacing = this.worksheetService.options.lineSpacing;
-    this.numberOfAddends = this.worksheetService.options.additionOptions.numberOfAddends;
-    this.numberOfDecimals = this.worksheetService.options.divisionOptions.decimalPlaces;
-    this.numberOfFactors = this.worksheetService.options.multiplicationOptions.numberOfFactors;
-    this.numberOfSubtrahends = this.worksheetService.options.subtractionOptions.numberOfSubtrahends;
-    this.problemFontSize = this.worksheetService.options.problemFontSize;
-    this.problemsPerRow = this.worksheetService.options.problemsPerRow;
-    this.mathProblemsClasses[`math-problems--columns-${this.problemsPerRow}`] = true;
-    this.mathProblemsClasses[`math-problems--font-size-${this.problemFontSize}`] = true;
-    this.mathProblemsClasses[`math-problems--letter-spacing-${this.letterSpacing}`] = true;
-    this.mathProblemsClasses[`math-problems--line-spacing-${this.lineSpacing}`] = true;
+  constructor(
+    private route: ActivatedRoute,
+    worksheetService: WorksheetService,
+    private analytics: AnalyticsService,
+    public authService: AuthService
+  ) {
+    this.worksheetService = worksheetService;
+    this.initialize();
   }
 
   ngOnInit() {
-    console.dir(this.worksheetService);
+    this.route.paramMap.subscribe(params => {
+      const id = params.get('id');
+
+      if (id) {
+        this.worksheetService.getById(id).subscribe(worksheetService => {
+          this.worksheetService.updateFromJson(worksheetService);
+          this.initialize();
+        });
+      }
+    });
 
     this.authService.user.subscribe(user => {
-      console.log(`authService.user.subscribe`, user);
+      // console.log(`authService.user.subscribe`, user);
 
       if (user) {
         this.isLoggedIn = true;
@@ -163,5 +170,20 @@ export class WorksheetGeneratorComponent implements OnInit {
     if (event.checked) {
       this.worksheetService.options.divisionOptions.showDecimals = false;
     }
+  }
+
+  private initialize() {
+    this.letterSpacing = this.worksheetService.options.letterSpacing;
+    this.lineSpacing = this.worksheetService.options.lineSpacing;
+    this.numberOfAddends = this.worksheetService.options.additionOptions.numberOfAddends;
+    this.numberOfDecimals = this.worksheetService.options.divisionOptions.decimalPlaces;
+    this.numberOfFactors = this.worksheetService.options.multiplicationOptions.numberOfFactors;
+    this.numberOfSubtrahends = this.worksheetService.options.subtractionOptions.numberOfSubtrahends;
+    this.problemFontSize = this.worksheetService.options.problemFontSize;
+    this.problemsPerRow = this.worksheetService.options.problemsPerRow;
+    this.mathProblemsClasses[`math-problems--columns-${this.problemsPerRow}`] = true;
+    this.mathProblemsClasses[`math-problems--font-size-${this.problemFontSize}`] = true;
+    this.mathProblemsClasses[`math-problems--letter-spacing-${this.letterSpacing}`] = true;
+    this.mathProblemsClasses[`math-problems--line-spacing-${this.lineSpacing}`] = true;
   }
 }

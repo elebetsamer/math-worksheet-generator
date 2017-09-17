@@ -21,4 +21,11 @@ export class SubtractionOptions {
   removeSubtrahend() {
     this.subtrahendRanges.splice(this.subtrahendRanges.length - 1, 1);
   }
+
+  updateFromJson(jsonObject: SubtractionOptions) {
+    this.allowNegativeAnswers = jsonObject.allowNegativeAnswers;
+    this.enabled = jsonObject.enabled;
+    this.minuendRange = jsonObject.minuendRange;
+    this.subtrahendRanges = jsonObject.subtrahendRanges;
+  }
 }
