@@ -6,9 +6,12 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 ## TODO
 
+- [ ] Add option to save/load default settings
 - [ ] Add "no carrying" option to addition problems
 - [ ] Add "no borrowing" option to subtraction problems
 - [ ] Add horizontal display option
+- [ ] Add login/sign up option, instead of using anonymous authentication
+- [ ] Add screen to show all previously generated worksheets for a user
 
 ## Development server
 
