@@ -158,6 +158,8 @@ export class WorksheetGeneratorComponent implements OnInit {
   }
 
   save() {
+    this.analytics.trackEventWithCategory('worksheet', 'save');
+
     this.worksheetService.save();
   }
 
