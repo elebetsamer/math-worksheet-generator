@@ -140,9 +140,9 @@ export class WorksheetGeneratorComponent implements OnInit {
   }
 
   print() {
-    this.analytics.trackEventWithCategory('worksheet', 'print');
-
     window.print();
+
+    this.analytics.trackEventWithCategory('worksheet', 'print');
   }
 
   problemFontSizeSliderChange(event) {
