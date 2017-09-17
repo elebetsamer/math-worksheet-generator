@@ -24,6 +24,10 @@ export class WorksheetService {
     this.problems = new Array<MathProblem>();
   }
 
+  getById(id: string): FirebaseObjectObservable<WorksheetService> {
+    return this.db.object(`/worksheets/${id}`);
+  }
+
   clearProblems() {
     this.problems = [];
   }
