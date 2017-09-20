@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
-import 'rxjs/add/operator/switchMap';
 
 import { AnalyticsService } from '../analytics/analytics.service';
 import { AuthService } from '../auth/auth.service';
@@ -36,7 +35,6 @@ export class WorksheetGeneratorComponent implements OnInit {
     public authService: AuthService
   ) {
     this.worksheetService = worksheetService;
-    this.initialize();
   }
 
   ngOnInit() {
@@ -49,6 +47,8 @@ export class WorksheetGeneratorComponent implements OnInit {
           this.worksheetService.updateFromJson(worksheetService);
           this.initialize();
         });
+      } else {
+        this.initialize();
       }
     });
 
