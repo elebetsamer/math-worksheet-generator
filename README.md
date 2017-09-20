@@ -15,7 +15,7 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 - [ ] Add "no carrying" option to addition problems
 - [ ] Add "no borrowing" option to subtraction problems
 - [ ] Add horizontal display option
-- [ ] Add option to hide the problem number
+- [x] Add option to hide the problem number
 - [ ] Add option to change the way the problem number is displayed:  
 *1.*  
 *1)*  

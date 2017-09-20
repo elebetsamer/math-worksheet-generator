@@ -18,6 +18,7 @@ export class WorksheetOptions {
   showDateLine = true;
   showInstructions = true;
   showNameLine = true;
+  showProblemNumbers = true;
   showTitle = true;
   subtractionOptions = new SubtractionOptions();
   title = 'Math Worksheet';
@@ -36,6 +37,7 @@ export class WorksheetOptions {
     this.showDateLine = jsonObject.showDateLine;
     this.showInstructions = jsonObject.showInstructions;
     this.showNameLine = jsonObject.showNameLine;
+    this.showProblemNumbers = jsonObject.showProblemNumbers;
     this.showTitle = jsonObject.showTitle;
     this.title = jsonObject.title;
     this.multiplicationOptions.updateFromJson(jsonObject.multiplicationOptions);

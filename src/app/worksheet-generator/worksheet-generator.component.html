@@ -162,6 +162,9 @@
                 </md-form-field>
               </div>
               <div>
+                <md-slide-toggle color="primary" name="showProblemNumbers" [(ngModel)]="worksheetService.options.showProblemNumbers">Show problem numbers</md-slide-toggle>
+              </div>
+              <div>
                 <md-slide-toggle color="primary" name="showAnswers" [(ngModel)]="worksheetService.options.showAnswers">Show answers</md-slide-toggle>
               </div>
               <div>
@@ -185,7 +188,7 @@
         <div class="math-problems" [ngClass]="mathProblemsClasses">
           <div class="math-problem" *ngFor="let problem of worksheetService.problems; index as i">
             <div class="math-problem__problem">
-              <div class="math-problem__number">{{i+1}}.</div>
+              <div class="math-problem__number" *ngIf="worksheetService.options.showProblemNumbers">{{i+1}}.</div>
               <div class="math-problem__symbol">{{ problem.symbol }}</div>
               <div class="math-problem__value" *ngFor="let value of problem.values">{{ value }}</div>
               <div class="math-problem__answer" *ngIf="worksheetService.options.showAnswers">
